@@ -25,14 +25,15 @@ export async function request<T>(url: string, init?: RequestInit): Promise<T> {
 
   // La API de ejemplo devuelve un contenedor con success y data.
   // Aqui extraemos solamente data para que los componentes reciban datos limpios.
-  if (body && typeof body === "object" && "success" in body) {
-    const apiBody = body as ApiEResponseUser<T>;
+  // NOTA: Agregamos "sucess" para soportar un error tipográfico en el backend.
+  if (body && typeof body === "object" && ("success" in body || "sucess" in body)) {
+    const isSuccess = "success" in body ? body.success : body.sucess;
 
-    if (!apiBody.success) {
-      throw new Error(apiBody.message ?? "La operacion no fue exitosa.");
+    if (!isSuccess) {
+      throw new Error(body.message ?? body.error ?? "La operacion no fue exitosa.");
     }
 
-    return apiBody.data;
+    return body.data;
   }
   
   return body as T;
