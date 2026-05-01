@@ -23,8 +23,9 @@ export function useUsers() {
   const [notice, setNotice] = useState<string | null>(null);
 
   // useMemo evita ordenar de nuevo la lista en cada render si users no cambio.
+  // Agregamos Array.isArray como protección por si la API devuelve algo inesperado.
   const sortedUsers = useMemo(
-    () => [...users].sort((a, b) => a.id - b.id),
+    () => (Array.isArray(users) ? [...users].sort((a, b) => a.id - b.id) : []),
     [users],
   );
 
