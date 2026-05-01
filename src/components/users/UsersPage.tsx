@@ -36,9 +36,6 @@ export function UsersPage() {
             <h1 className="text-2xl font-bold tracking-normal text-slate-950 sm:text-3xl">
               Administracion de usuarios
             </h1>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-              CRUD conectado a <span className="font-mono">{USERS_API_URL}</span>
-            </p>
           </div>
         </header>
 
